@@ -1,0 +1,58 @@
+﻿@model IEnumerable<User>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Contacts</h1>
+
+        <div class="upload-container">
+            <form asp-action="Upload" asp-controller="Users" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" />
+                <input type="submit" value="Upload" class="btn btn-primary" />
+            </form>
+        </div>
+
+        <table id="userTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date of Birth</th>
+                    <th>Married</th>
+                    <th>Phone</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr data-id="@user.Id">
+                        <td contenteditable="true">@user.Name</td>
+                        <td contenteditable="true">@user.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                        <td contenteditable="true">@user.Married</td>
+                        <td contenteditable="true">@user.Phone</td>
+                        <td contenteditable="true">@user.Salary</td>
+                        <td>
+                            <button class="btn btn-primary save-btn">Save</button>
+                            <button class="btn btn-danger delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="~/js/userScript.js"></script>
+    <link rel="stylesheet" href="~/css/userStyle.css" asp-append-version="true" />
+</body>
+</html>
